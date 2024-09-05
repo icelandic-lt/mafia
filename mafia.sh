@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 #--------------------------------------------------------------------#
 # MAFIA (Match-Finder Aligner)
-#Copyright   2022 Reykjavik University 
-#Author: Carlos Daniel Hernández Mena - carlosm@ru.is
-
 #--------------------------------------------------------------------#
+set -eo pipefail
+
 this_script="mafia.sh"
 echo " "
 echo "+++++++++++++++++++++++++++++++++++++++++++++"
@@ -12,6 +11,25 @@ echo "INFO ($this_script): MAFIA (Match-Finder Aligner)"
 date
 echo "+++++++++++++++++++++++++++++++++++++++++++++"
 echo " "
+
+#
+# Check necessary variables
+#
+if [ -z "$KENLM_ROOT" ]; then
+    echo "ERROR ($this_script): KENLM_ROOT is not set"
+    exit 1
+fi
+
+if [ -z "$INPUT_DATA" ]; then
+    echo "ERROR ($this_script): INPUT_DATA is not set. Please set the path to the audio recording directory."
+    exit 1
+fi
+
+if [ -z "$CUDA_VISIBLE_DEVICES" ]; then
+    CUDA_VISIBLE_DEVICES="0"
+    echo "No CUDA_VISIBLE_DEVICES set, using default: $CUDA_VISIBLE_DEVICES"
+fi
+
 
 #--------------------------------------------------------------------#
 #System Paths
@@ -27,9 +45,7 @@ SEGMENTS="segments"
 #CONTROL PANEL
 #--------------------------------------------------------------------#
 
-#Choosing the GPUs for the training process.
 CUDA_DEVICE_ORDER="PCI_BUS_ID"
-CUDA_VISIBLE_DEVICES="0,1,2,3,4"
 
 nj_decode=16
 
@@ -40,14 +56,11 @@ to_stage=8
 #Setting up important paths and variables
 #--------------------------------------------------------------------#
 
-INPUT_DATA="<path-to>/PODCASTS_TO_ALIGN"
-
 NEMO_MODEL=$MODELS/QuartzNet15x1SEP-IS.nemo
 LANGUAGE_MODEL=$MODELS/3GRAM_ARPA_MODEL.lm
 
 #--------------------------------------------------------------------#
 #Exit immediately in case of error.
-set -eo pipefail
 
 #--------------------------------------------------------------------#
 #Create data directory
