@@ -22,7 +22,7 @@ This repository has been created by the [Language and Voice Lab](https://lvl.ru.
 ## Status
 ![Experimental](https://img.shields.io/badge/Experimental-darkviolet)
 
-This project has a lot of 3rdparty dependencies that you need to get compiled and installed on your system. Also make sure to have CMake version > `3.18` installed to successfully compile all dependencies. You can alternatively use Nvidia NeMo Docker containers for running this code to have less hassle for installation.<br>
+This project has a lot of 3rdparty dependencies that you need to get compiled and installed on your system. Also make sure to have CMake version > `3.18` installed to successfully compile all dependencies. You can alternatively use Nvidia NeMo Docker containers for running this code to have less hassle for getting the correct Python dependencies straight, but be aware of the caveats ahead.<br>
 Because some parts of the project use unmaintained 3rdparty projects like e.g. [OpenSeq2Seq](https://github.com/NVIDIA/OpenSeq2Seq), you need to use older dependencies to be compatible. This could be resolved in compiling the dependency [ctc_decoder](https://github.com/NVIDIA/OpenSeq2Seq/tree/master/decoders) oneself (e.g. use some alternative projects like [here](https://github.com/Slyne/ctc_decoder) and [here](https://github.com/parlance/ctcdecode)) or use the [PyTorch version](https://pytorch.org/audio/main/generated/torchaudio.models.decoder.ctc_decoder.html). But this is not implemented in this project.
 
 ## System Requirements
@@ -164,7 +164,10 @@ pushd NeMo/scripts/asr_language_modeling/ngram_lm
 bash install_beamsearch_decoders.sh `pwd`/../../../..
 popd
 ```
-Please mind off that the last step needs Python 3.7 and therefore is not supported inside the NeMo containers. You have to find an alternative way to install the ctc_decoder dependency, e.g. via an alternative route outlined above.
+
+#### Caveats
+
+Please mind off that the last step needs Python 3.7 and therefore is not supported inside the NeMo containers. You have to find an alternative way to install the ctc_decoder dependency, e.g. via an alternative route outlined at the beginning.
 
 ## Running MAFIA
 
