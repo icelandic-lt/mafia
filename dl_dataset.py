@@ -4,7 +4,7 @@ import librosa
 import os
 import soundfile as sf
 
-# This script downloads am audio dataset from Huggingface and saves for each data row 2 files into the given data folder
+# This script downloads an audio dataset from Huggingface and saves for each data row 2 files into the given data folder
 # with the audio data in one file and the transcription text in another file. Both files have the same base name but
 # different suffixes .wav/.txt.
 #
