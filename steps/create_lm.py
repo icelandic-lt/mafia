@@ -60,8 +60,8 @@ file_whole_text.close()
 #lm_path=os.path.join(DIR_LM_OUT,"3GRAM_MODEL.lm")
 
 # Create the 3gram language model. If KENLM_ROOT is not set, raise an error.
-kenlm_path=os.environ['KENLM_ROOT']
-if kenlm_path==None:
+kenlm_path = os.environ.get("KENLM_ROOT")
+if kenlm_path is None:
 	raise ValueError("KENLM_ROOT is not set")
 command_kenlm="cat " + text_file_path + " | " + kenlm_path + "/lmplz -o 3 >" + LM_PATH
 print(command_kenlm)

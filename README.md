@@ -167,7 +167,7 @@ popd
 
 #### Caveats
 
-Please mind off that the last step needs Python 3.7 and therefore is not supported inside the NeMo containers. You have to find an alternative way to install the ctc_decoder dependency, e.g. via an alternative route outlined at the beginning.
+Note that the last steps need Python 3.7 and therefore is not supported inside the NeMo containers. You have to find an alternative way to install the ctc_decoder dependency, e.g. via an alternative route outlined at the beginning.
 
 ## Running MAFIA
 
