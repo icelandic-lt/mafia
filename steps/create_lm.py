@@ -20,7 +20,6 @@
 #Imports
 
 import sys
-#import re
 import os
 
 ########################################################################
@@ -57,11 +56,16 @@ file_scripts_paths.close()
 file_whole_text.close()
 
 ########################################################################
-#Create the language model usin SRILM
+#Create the language model using KenLM
 #lm_path=os.path.join(DIR_LM_OUT,"3GRAM_MODEL.lm")
-command_srilm="ngram-count -order 3 -unk -kndiscount -interpolate -text "+text_file_path+" -lm "+LM_PATH
-print(command_srilm)
-os.system(command_srilm)
+
+# Create the 3gram language model. If KENLM_ROOT is not set, raise an error.
+kenlm_path = os.environ.get("KENLM_ROOT")
+if kenlm_path is None:
+	raise ValueError("KENLM_ROOT is not set")
+command_kenlm="cat " + text_file_path + " | " + kenlm_path + "/lmplz -o 3 >" + LM_PATH
+print(command_kenlm)
+os.system(command_kenlm)
 
 ########################################################################
 
